@@ -11,8 +11,11 @@ export interface TasksProps {
 
 export const useTask = () => {
   const [tasks, setTasks] = useState<TasksProps[]>(() => {
-    const storedTasks = localStorage.getItem('@app:tasks')
-    return storedTasks ? JSON.parse(storedTasks) : []
+    if (typeof window !== 'undefined') {
+      const storedTasks = localStorage.getItem('@app:tasks')
+      return storedTasks ? JSON.parse(storedTasks) : []
+    }
+    return []
   })
   const [isVisibleAddTaskModal, toggleVisibilityAddTaskModal] = useToggle(false)
   const [isVisibleDeleteTaskModal, toggleVisibilityDeleteTaskModal] =
@@ -51,7 +54,9 @@ export const useTask = () => {
   )
 
   useEffect(() => {
-    localStorage.setItem('@app:tasks', JSON.stringify(tasks))
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('@app:tasks', JSON.stringify(tasks))
+    }
   }, [tasks])
 
   return {
