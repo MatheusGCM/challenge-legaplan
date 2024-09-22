@@ -1,0 +1,17 @@
+.modalDescription {
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.5rem;
+  letter-spacing: -0.02rem;
+}
+.horizontalButtons {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 1rem;
+
+  @media (min-width: 640px) {
+    flex-direction: row;
+  }
+}

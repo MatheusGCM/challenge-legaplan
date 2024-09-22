@@ -1,0 +1,43 @@
+
+.overlay {
+  display: flex;
+  padding: 1.5rem;
+
+  position: fixed;
+  inset: 0;
+
+  background-color: white;
+  
+  .modal {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 100%;
+  }
+    .modalTitle{
+      font-size: 1.5rem;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+      letter-spacing: -0.03rem;
+    }
+}
+
+@media (min-width: 640px) { 
+  .overlay {
+    justify-content: center;
+    align-items: center;
+
+    background: rgba(255, 255, 255, 0.80);
+  
+    .modal {
+      width: 28.125rem;
+      padding: 2rem;
+  
+      background-color: white;
+
+      border-radius: 1rem;
+      box-shadow: 0px 24px 48px -12px rgba(16, 24, 40, 0.18);
+    }
+  }
+}

@@ -1,0 +1,73 @@
+.containerTask {
+  display: flex;
+
+  padding: 1rem;
+  border-radius: 0.5rem;
+
+  border: 1px dashed #D7DDE9;
+
+  &:hover {
+    border: 1px solid #F7F9FD;
+    background-color: #F7F9FD;
+  }
+
+  .containerCheckboxAndName {
+    display: flex;
+    gap: 1rem;
+
+    cursor: pointer;
+
+    .checkbox {
+      width: 1.5rem;
+      height: 1.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  
+      border: 1px solid #B0BBD1;
+      border-radius: 0.25rem;
+  
+      &.checked {
+        border: 1px solid #0796D3;
+        background: #A0DCF6; 
+      }
+  
+      .check {
+        width: 1.125rem;
+        height: 1.125rem;
+        color: #0796D3;
+      }
+    }
+  
+    .taskName {
+      color: #000;
+      font-size: 1rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      letter-spacing: -0.02rem;
+
+      width: 10rem;
+  
+      &.taskNameCompleted {
+        color: rgba(0, 0, 0, 0.54);
+        text-decoration-line: line-through;
+      }
+
+      @media (min-width: 640px) {
+        width: 16rem;
+      }
+    }
+  }
+
+  .trash {
+    width: 1.5rem;
+    height: 1.5rem;
+
+    margin-left: auto;
+    
+    color: #B0BBD1;
+    cursor: pointer;
+  }
+}
+

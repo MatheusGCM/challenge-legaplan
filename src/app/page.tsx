@@ -1,95 +1,93 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client'
+import { useState } from 'react'
+
+import {
+  Button,
+  Header,
+  ModalDeleteTask,
+  ModalLayout,
+  Task,
+  ModalAddTask,
+} from '@/components'
+
+import { type TasksProps, useTask } from '@/hooks/use-task'
+
+import styles from './home.module.scss'
 
 export default function Home() {
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [taskDeletionId, setTaskDeletionId] = useState<string>('')
+  const {
+    tasks,
+    isVisibleAddTaskModal,
+    isVisibleDeleteTaskModal,
+    toggleTaskCompletion,
+    toggleVisibilityDeleteTaskModal,
+    toggleVisibilityAddTaskModal,
+    handleAddTask,
+    deleteTask,
+  } = useTask()
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+  const tasksNotCompleted = tasks.filter(({ isCompleted }) => !isCompleted)
+  const tasksCompleted = tasks.filter(({ isCompleted }) => isCompleted)
+
+  function handleDeleteTask(taskId: string) {
+    toggleVisibilityDeleteTaskModal()
+    setTaskDeletionId(taskId)
+  }
+
+  function renderTasks(taskList: TasksProps[], title: string) {
+    return (
+      <>
+        <p className={styles.title}>{title}</p>
+        {taskList.map(item => (
+          <Task
+            key={item.id}
+            onCompleteTaskClicked={() => toggleTaskCompletion(item.id)}
+            onDeleteTaskClicked={() => handleDeleteTask(item.id)}
+            {...item}
+          />
+        ))}
+      </>
+    )
+  }
+
+  return (
+    <>
+      <Header />
+      <main className={styles.containerMain}>
+        <div className={styles.containerTasksAndButton}>
+          <div className={styles.containerTasks}>
+            {renderTasks(
+              tasksNotCompleted,
+              tasks.length ? 'Suas tarefas de hoje' : 'Sem tarefas hoje'
+            )}
+            {!!tasksCompleted.length &&
+              renderTasks(tasksCompleted, 'Tarefas finalizadas')}
+          </div>
+
+          <Button
+            variant="primary"
+            label="Adicionar nova tarefa"
+            onClick={toggleVisibilityAddTaskModal}
+          />
         </div>
       </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+      {isVisibleAddTaskModal && (
+        <ModalLayout title="Nova tarefa">
+          <ModalAddTask
+            onCancelClicked={toggleVisibilityAddTaskModal}
+            onAddClicked={handleAddTask}
           />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
+        </ModalLayout>
+      )}
+      {isVisibleDeleteTaskModal && (
+        <ModalLayout title="Deletar tarefa">
+          <ModalDeleteTask
+            onCancelClicked={toggleVisibilityDeleteTaskModal}
+            onDeleteClicked={() => deleteTask(taskDeletionId)}
           />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+        </ModalLayout>
+      )}
+    </>
+  )
 }

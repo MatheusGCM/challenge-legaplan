@@ -1,0 +1,47 @@
+
+.containerLabelAndInput {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  label {
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.02rem;
+  }
+
+  input {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid #D7DDE9;
+    outline: none;
+
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.02rem;
+
+    &:focus {
+      outline: 1px solid #0796D3;
+    }
+  }
+
+  .textError {
+    height: 2rem;
+    color: #ef4444;
+    font-size: 12px;
+  }
+}
+
+.horizontalButtons {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 1rem;
+
+  @media (min-width: 640px) {
+    flex-direction: row;
+  }
+}
