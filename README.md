@@ -3,9 +3,9 @@
 ### 🤔 Sobre
 O teste consiste no desenvolvimento de uma aplicação front-end, no formato TODO APP, utilizando NEXTJS. O projeto contém as seguintes funcionalidade:
 
-[x] - Criar tarefa
-[x] - Remover tarefa
-[x] - Finalizar tarefa
+- [x] Criar tarefa
+- [x] Remover tarefa
+- [x] Finalizar tarefa
 
 DEPLOY: [challenge-legaplan]
 
